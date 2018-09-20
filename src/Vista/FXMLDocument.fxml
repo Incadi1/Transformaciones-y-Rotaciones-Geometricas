@@ -8,19 +8,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="764.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="819.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLDocumentController">
    <children>
-      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="110.0" layoutY="559.0" onDragDetected="#BtCubo" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="110.0" layoutY="559.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/TexInt/Cubo-Inter.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="338.0" layoutY="549.0" onDragDetected="#BtEsfera" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="338.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/TexInt/Esfera-Inter.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="160.0" fitWidth="150.0" layoutX="556.0" layoutY="549.0" onDragDetected="#BtCilindroNo" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="160.0" fitWidth="150.0" layoutX="556.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Imagenes/TexInt/Cilindro-Inter.jpg" />
          </image>
@@ -48,5 +48,8 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Button layoutX="560.0" layoutY="554.0" mnemonicParsing="false" onMouseClicked="#BtCilindro" opacity="0.01" prefHeight="121.0" prefWidth="135.0" />
+      <Button layoutX="102.0" layoutY="554.0" mnemonicParsing="false" onAction="#BtEsfera" onMouseClicked="#BtCilindro" opacity="0.0" prefHeight="121.0" prefWidth="135.0" />
+      <Button layoutX="337.0" layoutY="553.0" mnemonicParsing="false" onAction="#BtCubo" onMouseClicked="#BtCilindro" opacity="0.0" prefHeight="121.0" prefWidth="135.0" />
    </children>
 </AnchorPane>
