@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="764.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLDocumentController">
+   <children>
+      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="110.0" layoutY="559.0" onDragDetected="#BtCubo" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/TexInt/Cubo-Inter.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="129.0" fitWidth="150.0" layoutX="338.0" layoutY="549.0" onDragDetected="#BtEsfera" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/TexInt/Esfera-Inter.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="160.0" fitWidth="150.0" layoutX="556.0" layoutY="549.0" onDragDetected="#BtCilindroNo" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Imagenes/TexInt/Cilindro-Inter.jpg" />
+         </image>
+      </ImageView>
+      <MenuButton layoutX="112.0" layoutY="688.0" mnemonicParsing="false" onAction="#MbAcciones" text="Acciones">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#MbAnimar" text="Animar" />
+          <MenuItem mnemonicParsing="false" onAction="#MbDetener" text="Detener" />
+        </items>
+      </MenuButton>
+      <Pane fx:id="Panel" layoutX="27.0" layoutY="53.0" prefHeight="455.0" prefWidth="721.0" />
+      <MenuBar layoutX="476.0" layoutY="14.0">
+        <menus>
+          <Menu mnemonicParsing="false" onAction="#MbarInfo" text="Información">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" onAction="#MbarCreadores" text="Creadores" />
+          <Menu fx:id="MbOpciones" mnemonicParsing="false" onAction="#MbarOpciones" text="Opciones">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#MbarLimpiar" text="Limpiar" />
+              <MenuItem mnemonicParsing="false" onAction="#MbarSalir" text="Salir" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
