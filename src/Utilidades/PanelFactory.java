@@ -1,5 +1,5 @@
 /**
- * Descripción de la clase ...
+ * Es en donde se crea el panel de control y se inicializa el controles
  *
  * @author ingrid.carmona@uao.edu.co , Ingrid Carmona Diaz , Código 2150147
  * @author sebastian.carmona@uao.edu.co , Sebastian Carmona , Código 2170266

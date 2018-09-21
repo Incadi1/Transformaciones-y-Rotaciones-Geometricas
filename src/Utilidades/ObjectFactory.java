@@ -1,5 +1,5 @@
 /**
-* Descripción de la clase ...
+* Clase que permite crear la escena 3D para cada objeto geometrico
 * @author ingrid.carmona@uao.edu.co , Ingrid Carmona Diaz , Código 2150147  
 * @author sebastian.carmona@uao.edu.co , Sebastian Carmona , Código 2170266
 * @date 21 Septiembre 2018 - Viernes

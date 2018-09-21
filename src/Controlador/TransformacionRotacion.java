@@ -1,5 +1,10 @@
 /**
- * Descripción de la clase ...
+ * En esta clase se inicializan las variables y los contadores, 
+ * Creamos los objetos con cada uno de sus respectivos parametros, es decir, 
+ * el tamaño, la rotación y traslación de cada uno de ellos ,
+ * se le asigna la luz a cada objeto y el material y textura respectiva a cada una 
+ * de ellas, se agregua al root la scene3D como un hijo y se le  agrega al root el controlPanel,
+ * se crea una escena con su respectiva camara.
  *
  * @author ingrid.carmona@uao.edu.co , Ingrid Carmona Diaz , Código 2150147
  * @author sebastian.carmona@uao.edu.co , Sebastian Carmona , Código 2170266
@@ -9,12 +14,8 @@
 package Controlador;
 
 import Utilidades.ObjectFactory;
-import Utilidades.PanelFactory;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import Utilidades.PanelFactory; 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
@@ -28,7 +29,6 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class TransformacionRotacion extends Application {
 
@@ -36,7 +36,6 @@ public class TransformacionRotacion extends Application {
     private Cylinder Cyl;
     private Sphere Sph;
 
-    private Timeline time;
 
     int contTraslacion = 0;
     int sigTraslacion = 0;
@@ -45,37 +44,42 @@ public class TransformacionRotacion extends Application {
 
     int conTraslascion = -100;
     int Sigtraslacion = 0;
-    
-    public Timeline tm;
 
+/**
+* Se inicializan los objetos geometricos con sus respectivas translaciones y rotaciones 
+* @param stage. //recibe parametros de lectura 
+método.
+*/
     @Override
     public void start(Stage stage) throws Exception {
 
-        //creación del Cilindro 
-        double lado = 100;
-        Cyl = new Cylinder(200, 200);
-        Cyl.setTranslateX(200);
-        Cyl.setTranslateY(100);
-        Cyl.setTranslateZ(-250);
-        Cyl.setRotationAxis(new Point3D(-1, -1, 1));
         //material
+        double lado = 100;
+        int n = 100;
+        Cyl = new Cylinder(100, 100);
+        Cyl.setTranslateX((Math.random() * n) + 2);
+        Cyl.setTranslateY((Math.random() * n) + 2);
+        Cyl.setTranslateZ((Math.random() * n) + 2);
 
-        //Creacion de la esfera y tiempo de rotación
+        Cyl.setRotationAxis(new Point3D(-1, -1, 1));
+        Cyl.setVisible(false);
+
+
+        //Creacion de la esfera y tiempo de rotación y traslación
         Sph = new Sphere(100);
         Sph.setTranslateX(100);
         Sph.setTranslateY(-100);
         Sph.setTranslateZ(0);
         Sph.setRotationAxis(new Point3D(0, 1, 0));
         Sph.setVisible(false);
-        
 
         //Creacion del cubo y tiempo de rotacion 
         Cubo = new Box(50, 50, 50);
-        Cubo.setTranslateX(0);
+        Cubo.setTranslateX(20);
         Cubo.setTranslateY(0);
-        Cubo.setTranslateZ(0);
-        Cubo.setRotationAxis(new Point3D(1, 0, 0));
-
+        Cubo.setTranslateZ(250);
+        Cubo.setRotationAxis(new Point3D(1, 1, 1));
+        Cubo.setVisible(false);
 
         //-----TEXTURAS PARA EL CUBO-------
         Image TexturasCubo = new Image(getClass().getResource("/Texturas/Cubo.jpg").toExternalForm());
@@ -98,8 +102,8 @@ public class TransformacionRotacion extends Application {
         material7.setDiffuseMap(TexturasSphere);
         Sph.setMaterial(material7);
 
+        //-------------HIJOS DEL ROOT--------------------------
         Node controlPanel = PanelFactory.createControlPanel(stage, Cyl, Cubo, Sph);
-
         Node scene3D5 = ObjectFactory.createScene3D(Cubo);
         Node scene3D6 = ObjectFactory.createScene3D(Sph);
         Node scene3D7 = ObjectFactory.createScene3D(Cyl);
@@ -123,16 +127,11 @@ public class TransformacionRotacion extends Application {
 
     }
 
-     public void limite() {
-        if (conTraslascion == -100) {
-            Sigtraslacion = 1;
-        } else if (conTraslascion == 300) {
-            Sigtraslacion = -1;
-        }
-        Sph.setTranslateX(conTraslascion);
-        conTraslascion += Sigtraslacion;
-    }
+/**
 
+* @param args. // De cada uno de los parámetros que recibe el
+método.
+*/
     public static void main(String[] args) {
         launch(args);
     }
