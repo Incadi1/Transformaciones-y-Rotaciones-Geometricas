@@ -14,6 +14,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
@@ -34,7 +35,9 @@ public class TransformacionRotacion extends Application {
     private Box Cubo;
     private Cylinder Cyl;
     private Sphere Sph;
-    
+
+    private Timeline time;
+
     int contTraslacion = 0;
     int sigTraslacion = 0;
     int sigRotacion = 0;
@@ -42,10 +45,11 @@ public class TransformacionRotacion extends Application {
 
     int conTraslascion = -100;
     int Sigtraslacion = 0;
+    
+    public Timeline tm;
 
     @Override
     public void start(Stage stage) throws Exception {
-        
 
         //creación del Cilindro 
         double lado = 100;
@@ -56,24 +60,21 @@ public class TransformacionRotacion extends Application {
         Cyl.setRotationAxis(new Point3D(-1, -1, 1));
         //material
 
-        
-          //Creacion de la esfera y tiempo de rotación
+        //Creacion de la esfera y tiempo de rotación
         Sph = new Sphere(100);
         Sph.setTranslateX(100);
         Sph.setTranslateY(-100);
         Sph.setTranslateZ(0);
         Sph.setRotationAxis(new Point3D(0, 1, 0));
-
-        Timeline tm = new Timeline(new KeyFrame(Duration.seconds(0.003), ae -> TraslacionEsfera()));
-        tm.setCycleCount(Animation.INDEFINITE);
-        tm.play();
+        Sph.setVisible(false);
+        
 
         //Creacion del cubo y tiempo de rotacion 
         Cubo = new Box(50, 50, 50);
         Cubo.setTranslateX(0);
         Cubo.setTranslateY(0);
         Cubo.setTranslateZ(0);
-        Sph.setRotationAxis(new Point3D(1, 0, 0));
+        Cubo.setRotationAxis(new Point3D(1, 0, 0));
 
 
         //-----TEXTURAS PARA EL CUBO-------
@@ -82,16 +83,16 @@ public class TransformacionRotacion extends Application {
         material5.setBumpMap(TexturasCubo);
         material5.setDiffuseMap(TexturasCubo);
         Cubo.setMaterial(material5);
-        
-          //-----TEXTURAS PARA EL CILINDRO-------
-         Image TexturasCylinder = new Image(getClass().getResource("/Texturas/Cilindro.png").toExternalForm());
+
+        //-----TEXTURAS PARA EL CILINDRO-------
+        Image TexturasCylinder = new Image(getClass().getResource("/Texturas/Cilindro.png").toExternalForm());
         PhongMaterial material6 = new PhongMaterial();
         material6.setBumpMap(TexturasCylinder);
         material6.setDiffuseMap(TexturasCylinder);
         Cyl.setMaterial(material6);
-        
-          //-----TEXTURAS PARA ELA ESFERA-------
-         Image TexturasSphere = new Image(getClass().getResource("/Texturas/Esfera.png").toExternalForm());
+
+        //-----TEXTURAS PARA ELA ESFERA-------
+        Image TexturasSphere = new Image(getClass().getResource("/Texturas/Esfera.png").toExternalForm());
         PhongMaterial material7 = new PhongMaterial();
         material7.setBumpMap(TexturasSphere);
         material7.setDiffuseMap(TexturasSphere);
@@ -102,9 +103,7 @@ public class TransformacionRotacion extends Application {
         Node scene3D5 = ObjectFactory.createScene3D(Cubo);
         Node scene3D6 = ObjectFactory.createScene3D(Sph);
         Node scene3D7 = ObjectFactory.createScene3D(Cyl);
-    
-        
-        
+
 //-----------------CREA LAS LUCES Y SE AGREGAN LOS HIJIOS --------------------
         AmbientLight luz = new AmbientLight(Color.WHITE);     //luces (cree un AmbientLight)
         Group root = new Group();                          //Group
@@ -114,7 +113,7 @@ public class TransformacionRotacion extends Application {
         root.getChildren().add(scene3D7);               //agregue al root el controlPanel como un hijo
         root.getChildren().add(luz);                         //agregue al root la luz como un hijo
 //----------------------------------------------------------------------------
-        
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.getScene().setCamera(new PerspectiveCamera());
@@ -122,11 +121,9 @@ public class TransformacionRotacion extends Application {
         stage.setTitle("Rotacion General");
         stage.show();
 
-
     }
-    
-       public void TraslacionEsfera() {
 
+     public void limite() {
         if (conTraslascion == -100) {
             Sigtraslacion = 1;
         } else if (conTraslascion == 300) {

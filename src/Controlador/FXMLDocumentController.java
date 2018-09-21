@@ -11,12 +11,15 @@ package Controlador;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.control.MenuButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
@@ -25,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
-public class FXMLDocumentController extends TransformacionRotacion {
+public class FXMLDocumentController extends TransformacionRotacion implements Initializable{
 
     private Stage stage;
 
@@ -44,38 +47,52 @@ public class FXMLDocumentController extends TransformacionRotacion {
     private Box Cubo;
     private Cylinder Cyl;
     private Sphere Sph;
-
     private Timeline time;
-
-
+    private RotateTransition rot;
+    public Timeline tm;
 
     public void setStage(Stage stage) {
-        this.stage = stage;    }
-    
+        this.stage = stage;
+    }
+
     public Pane getPanel() {
-        return Panel;  }
+        return Panel;
+    }
 
     public void setObjetoGeometricoCyl(Cylinder Cyl) {
-       this.Cyl = Cyl;
+        this.Cyl = Cyl;
     }
-    
-    public void setObjetoGeometricoBox(Box Cubo){
+
+    public void setObjetoGeometricoBox(Box Cubo) {
         this.Cubo = Cubo;
     }
-    
-    public void setObjetoGeometrico(Sphere Sph){
+
+    public void setObjetoGeometrico(Sphere Sph) {
         this.Sph = Sph;
     }
 
 //-------------------------------------
     @FXML
-    void BtEsfera(ActionEvent event) {
+    public void BtEsfera(ActionEvent event) {
 //Mostrar el esfera en pantalla y emppieza a girar
         TraslacionEsfera();
-
+    }
+    @FXML
+    public void TraslacionEsfera() {
+       Sph.setVisible(true);
+        tm.play();
     }
 
- 
+    public void limite() {
+        
+        if (conTraslascion == -100) {
+            Sigtraslacion = 1;
+        } else if (conTraslascion == 300) {
+            Sigtraslacion = -1;
+        }
+        Sph.setTranslateX(conTraslascion);
+        conTraslascion += Sigtraslacion;
+    }
 
     @FXML
     public void BtCubo(ActionEvent event) {
@@ -83,20 +100,20 @@ public class FXMLDocumentController extends TransformacionRotacion {
     }
 
     @FXML
-    void BtCilindro(ActionEvent event) {
+    public void BtCilindro(MouseEvent event) {
         //Empieze a aparecer aleatorio cuando es presionado
     }
     //--------------------------------
 
     @FXML
-    void MbAcciones(ActionEvent event) {
+    public void MbAcciones(ActionEvent event) {
 
     }
 
     //-------- Cubo-----
     @FXML
-    void MbAnimarCubo(ActionEvent event) {
-        RotateTransition rot = new RotateTransition(Duration.seconds(3), Cubo);
+    public void MbAnimar(ActionEvent event) {
+        rot = new RotateTransition(Duration.seconds(3), Cubo);
         rot.setCycleCount(Animation.INDEFINITE);
         rot.setFromAngle(360);
         rot.setToAngle(-360);
@@ -105,31 +122,31 @@ public class FXMLDocumentController extends TransformacionRotacion {
     }
 
     @FXML
-    void MbDetener(ActionEvent event) {
-        time.stop();
+    public void MbDetener(ActionEvent event) {
+        rot.stop();
     }
 
     //---------------------
     @FXML
-    void MbarInfo(ActionEvent event) {
+    public void MbarInfo(ActionEvent event) {
 
-        JOptionPane.showMessageDialog(null, "Dar click en las figuras para empezar a dar el moviemiento/n"+" en el caso de el boton cubo en acciones se da click/n "
+        JOptionPane.showMessageDialog(null, "Dar click en las figuras para empezar a dar el moviemiento/n" + " en el caso de el boton cubo en acciones se da click/n "
                 + "animar para empezar a generar el movimiento");
     }
 
     @FXML
-    void MbarCreadores(ActionEvent event) {
- JOptionPane.showMessageDialog(null,"Sebastian Carmona " + "Ingrid Carmona Diaz");
+    public void MbarCreadores(ActionEvent event) {
+        JOptionPane.showMessageDialog(null, "Sebastian Carmona " + "Ingrid Carmona Diaz");
     }
 
     @FXML
-    void MbarOpciones(ActionEvent event) {
+    public void MbarOpciones(ActionEvent event) {
         MbarLimpiar(event);
         MbarSalir(event);
     }
 
     @FXML
-    void MbarLimpiar(ActionEvent event) { // DUDA
+    public void MbarLimpiar(ActionEvent event) { // DUDA
         double w = Panel.getWidth();
         double h = Panel.getHeight();
 
@@ -139,18 +156,22 @@ public class FXMLDocumentController extends TransformacionRotacion {
      * Detiene el timeline y termina la aplicación.
      */
     @FXML
-    void MbarSalir(ActionEvent event) {
+    public void MbarSalir(ActionEvent event) {
         System.exit(0);
     }
-
+    
+    
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-    //    Panel = Pane.getPoint3D();
-        Cubo.setVisible(false);
-        Sph.setVisible(false);
-        Cyl.setVisible(false);
+        //    Panel = Pane.getPoint3D();
         double w = Panel.getWidth();
         double h = Panel.getHeight();
-
+        tm = new Timeline(new KeyFrame(Duration.seconds(0.01), (ActionEvent event) -> {
+            limite();
+            
+        }));
+        tm.setCycleCount(Animation.INDEFINITE);
+        
     }
 
 }
